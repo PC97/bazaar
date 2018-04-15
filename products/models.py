@@ -2,6 +2,10 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.core.urlresolvers import reverse
+# from django.db.models.signals import pre_save
+# from django.utils.text import slugify
+# from django.utils import unique_slug_generator
 
 
 # Create your models here.
@@ -24,7 +28,7 @@ class Product(models.Model):
     '''
     categoryID = models.ForeignKey('Inventory', related_name='products')
     name = models.CharField(max_length=350)
-    slug = models.SlugField(max_length=150)
+    slug = models.SlugField(max_length=150,unique=True)
     description = models.TextField(blank='True')
     manufacturer = models.CharField(max_length=50, blank='True')
     photo = models.ImageField(upload_to='static/img/product_photo', blank='True')
@@ -37,7 +41,7 @@ class Product(models.Model):
      #   return self.price_in_rupees
 
     def get_absolute_url(self):
-        return ('product_detail',(),{'slug':self.slug})
+        return reverse('product_detail',kwargs={'slug':self.slug})
 
 
 class ProductDetail(models.Model):
@@ -71,3 +75,27 @@ class ProductAttribute(models.Model):
 
     def __unicode__(self):
         return '%s' % self.name
+
+    # def create_slug(instance, new_slug=None):
+    #     slug = slugify(instance.title)
+    #     if new_slug is not None:
+    #         slug = new_slug
+    #     qs = Post.objects.filter(slug=slug).order_by("-id")
+    #     exists = qs.exists()
+    #     if exists:
+    #         new_slug = "%s-%s" % (slug, qs.first().id)
+    #         return create_slug(instance, new_slug=new_slug)
+    #     return slug
+    #
+    # '''
+    # unique_slug_generator from Django Code Review #2 on joincfe.com/youtube/
+    # '''
+    #
+    #
+    # def pre_save_post_receiver(sender, instance, *args, **kwargs):
+    #     if not instance.slug:
+    #         # instance.slug = create_slug(instance)
+    #         instance.slug = unique_slug_generator(instance)
+    #
+    # pre_save.connect(pre_save_post_receiver, sender=Post)
+    #

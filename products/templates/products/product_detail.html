@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- PUBLIC "-//W3C//DTD HTML 4.01//EN"
-Created by htmlize-1.34 in css mode. -->
 <html>
   <head>
     <title>product_detail.html</title>
@@ -9,21 +7,21 @@ Created by htmlize-1.34 in css mode. -->
   <body>
     <h1>{{ object.name }}</h1>
     <p>{{ object.description }}</p>
-    <p>Price: ${{ object.price_in_dollars }}</p>
+    <p>Price: Rs.{{ object.price_in_dollars }}</p>
     {% for detail in object.details.all %}
     {% if forloop.first %}<p>Additional details:</p>{% endif %}
     <li>{{ detail.attribute.name }}: {{ detail.value }}</li>
     {% endfor %}
     <hr/>
-    <!--<form action="https://sandbox.google.com/checkout/api/checkout/v2/checkoutForm/Merchant/xxxxx" id="BB_BuyButtonForm" method="post" name="BB_BuyButtonForm">
-        <input name="item_name_1" type="hidden" value="{{ object.name }}"/>
-        <input name="item_description_1" type="hidden" value="{{ object.description }}"/>
-        <input name="item_quantity_1" type="hidden" value="1"/>
-        <input name="item_price_1" type="hidden" value="{{ object.price_in_dollars }}"/>
-        <input name="item_currency_1" type="hidden" value="USD"/>
-        <input name="_charset_" type="hidden" value="utf-8"/>
-        <input alt="" src="https://sandbox.google.com/checkout/buttons/buy.gif?merchant_id=xxxxx&amp;w=117&amp;h=48&amp;style=white&amp;variant=text&amp;loc=en_US" type="image"/>
-    </form>-->
+{#    <!--<form action="https://sandbox.google.com/checkout/api/checkout/v2/checkoutForm/Merchant/xxxxx" id="BB_BuyButtonForm" method="post" name="BB_BuyButtonForm">#}
+{#        <input name="item_name_1" type="hidden" value="{{ object.name }}"/>#}
+{#        <input name="item_description_1" type="hidden" value="{{ object.description }}"/>#}
+{#        <input name="item_quantity_1" type="hidden" value="1"/>#}
+{#        <input name="item_price_1" type="hidden" value="{{ object.price_in_dollars }}"/>#}
+{#        <input name="item_currency_1" type="hidden" value="USD"/>#}
+{#        <input name="_charset_" type="hidden" value="utf-8"/>#}
+{#        <input alt="" src="https://sandbox.google.com/checkout/buttons/buy.gif?merchant_id=xxxxx&amp;w=117&amp;h=48&amp;style=white&amp;variant=text&amp;loc=en_US" type="image"/>#}
+{#    </form>-->#}
 
     <p><a href="{% url "product_list" %}">Back to product list</a></p>
   </body>
